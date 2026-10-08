@@ -31,8 +31,13 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4 text-foreground">
-      <div className="w-full max-w-sm border border-border bg-card p-8">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 text-foreground">
+      <div
+        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.07]"
+        style={{ backgroundImage: 'url(/images/paris-street.jpg)' }}
+        aria-hidden="true"
+      />
+      <div className="relative z-10 w-full max-w-sm border border-border bg-card p-8">
         <div className="mb-6 flex items-center justify-center gap-2">
           <Film className="h-5 w-5 text-accent" />
           <h1 className="font-serif text-3xl tracking-wide text-foreground">Movie Journal</h1>

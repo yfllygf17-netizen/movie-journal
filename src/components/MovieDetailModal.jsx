@@ -51,8 +51,8 @@ export function MovieDetailModal({ movie, open, onClose, onUpdate, onDelete }) {
   async function handleSave() {
     await onUpdate(movie.id, {
       title: draft.title.trim() || movie.title,
-      rating: draft.rating || null,
-      notes: draft.notes.trim() || null,
+      rating: draft.watched ? draft.rating || null : null,
+      notes: draft.watched ? draft.notes.trim() || null : null,
       genres: draft.genres,
       watched: draft.watched,
       watched_at: draft.watched ? draft.watched_at || null : null,
@@ -100,10 +100,6 @@ export function MovieDetailModal({ movie, open, onClose, onUpdate, onDelete }) {
               className="border-b border-transparent bg-transparent pr-8 font-serif text-3xl text-foreground focus:border-border focus:outline-none"
             />
 
-            <StarRating value={draft.rating} onChange={(v) => setDraft((d) => ({ ...d, rating: v }))} />
-
-            <GenrePicker selected={draft.genres} onChange={(v) => setDraft((d) => ({ ...d, genres: v }))} />
-
             <div className="flex flex-wrap items-center gap-4 text-sm">
               <label className="flex items-center gap-2 text-muted-foreground">
                 <input
@@ -124,12 +120,18 @@ export function MovieDetailModal({ movie, open, onClose, onUpdate, onDelete }) {
               )}
             </div>
 
-            <Textarea
-              rows={3}
-              placeholder="Notes…"
-              value={draft.notes}
-              onChange={(e) => setDraft((d) => ({ ...d, notes: e.target.value }))}
-            />
+            {draft.watched && <StarRating value={draft.rating} onChange={(v) => setDraft((d) => ({ ...d, rating: v }))} />}
+
+            <GenrePicker selected={draft.genres} onChange={(v) => setDraft((d) => ({ ...d, genres: v }))} />
+
+            {draft.watched && (
+              <Textarea
+                rows={3}
+                placeholder="Notes…"
+                value={draft.notes}
+                onChange={(e) => setDraft((d) => ({ ...d, notes: e.target.value }))}
+              />
+            )}
 
             <div className="flex flex-wrap items-center gap-2">
               <Button size="sm" onClick={handleSave} disabled={!dirty}>

@@ -9,7 +9,7 @@ import { searchTmdb } from '@/lib/api.js';
 import { useDebouncedValue } from '@/hooks/useDebouncedValue.js';
 import { today } from '@/lib/utils.js';
 
-const EMPTY_FORM = { title: '', posterUrl: '', genres: [], rating: 0, watchedAt: '', notes: '' };
+const EMPTY_FORM = { title: '', posterUrl: '', genres: [], watched: true, rating: 0, watchedAt: '', notes: '' };
 
 export function AddMovieForm({ onAdd }) {
   const [form, setForm] = useState(EMPTY_FORM);
@@ -53,7 +53,7 @@ export function AddMovieForm({ onAdd }) {
     setShowSuggestions(false);
   }
 
-  async function handleSubmit(watched) {
+  async function handleSubmit() {
     if (!form.title.trim() || submitting) return;
     setSubmitting(true);
     try {
@@ -61,10 +61,10 @@ export function AddMovieForm({ onAdd }) {
         title: form.title.trim(),
         poster_url: form.posterUrl || null,
         genres: form.genres,
-        rating: form.rating || null,
-        watched,
-        watched_at: watched ? form.watchedAt || today() : null,
-        notes: form.notes.trim() || null,
+        rating: form.watched ? form.rating || null : null,
+        watched: form.watched,
+        watched_at: form.watched ? form.watchedAt || today() : null,
+        notes: form.watched ? form.notes.trim() || null : null,
       });
       setForm(EMPTY_FORM);
     } finally {
@@ -76,6 +76,28 @@ export function AddMovieForm({ onAdd }) {
 
   return (
     <div className="space-y-5">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h2 className="font-serif text-2xl text-foreground">Add a Movie</h2>
+        <div className="flex gap-2">
+          <Button
+            type="button"
+            size="sm"
+            variant={form.watched ? 'default' : 'outline'}
+            onClick={() => setForm((f) => ({ ...f, watched: true }))}
+          >
+            Add to Watched
+          </Button>
+          <Button
+            type="button"
+            size="sm"
+            variant={!form.watched ? 'default' : 'outline'}
+            onClick={() => setForm((f) => ({ ...f, watched: false }))}
+          >
+            Add to Watchlist
+          </Button>
+        </div>
+      </div>
+
       <div ref={containerRef} className="relative">
         <label className="mb-1.5 block text-xs uppercase tracking-wide text-muted-foreground">Title</label>
         <Input
@@ -120,34 +142,37 @@ export function AddMovieForm({ onAdd }) {
         <GenrePicker selected={form.genres} onChange={(genres) => setForm((f) => ({ ...f, genres }))} />
       </div>
 
-      <div>
-        <label className="mb-1.5 block text-xs uppercase tracking-wide text-muted-foreground">Rating</label>
-        <StarRating value={form.rating} onChange={(rating) => setForm((f) => ({ ...f, rating }))} />
-      </div>
+      {form.watched && (
+        <>
+          <div>
+            <label className="mb-1.5 block text-xs uppercase tracking-wide text-muted-foreground">Rating</label>
+            <StarRating value={form.rating} onChange={(rating) => setForm((f) => ({ ...f, rating }))} />
+          </div>
 
-      <div>
-        <label className="mb-1.5 block text-xs uppercase tracking-wide text-muted-foreground">Date Watched</label>
-        <Input type="date" value={form.watchedAt} onChange={(e) => setForm((f) => ({ ...f, watchedAt: e.target.value }))} />
-      </div>
+          <div>
+            <label className="mb-1.5 block text-xs uppercase tracking-wide text-muted-foreground">Date Watched</label>
+            <Input
+              type="date"
+              value={form.watchedAt}
+              onChange={(e) => setForm((f) => ({ ...f, watchedAt: e.target.value }))}
+            />
+          </div>
 
-      <div>
-        <label className="mb-1.5 block text-xs uppercase tracking-wide text-muted-foreground">Notes</label>
-        <Textarea
-          rows={3}
-          placeholder="Optional thoughts…"
-          value={form.notes}
-          onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
-        />
-      </div>
+          <div>
+            <label className="mb-1.5 block text-xs uppercase tracking-wide text-muted-foreground">Notes</label>
+            <Textarea
+              rows={3}
+              placeholder="Optional thoughts…"
+              value={form.notes}
+              onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
+            />
+          </div>
+        </>
+      )}
 
-      <div className="flex flex-col gap-2 sm:flex-row">
-        <Button className="flex-1" disabled={disabled} onClick={() => handleSubmit(true)}>
-          Add to Watched
-        </Button>
-        <Button className="flex-1" variant="outline" disabled={disabled} onClick={() => handleSubmit(false)}>
-          Add to Watchlist
-        </Button>
-      </div>
+      <Button className="w-full" disabled={disabled} onClick={handleSubmit}>
+        Add Movie
+      </Button>
     </div>
   );
 }

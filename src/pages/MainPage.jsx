@@ -68,7 +68,6 @@ export default function MainPage() {
               aria-hidden="true"
             />
             <div className="relative z-10">
-              <h2 className="mb-4 font-serif text-2xl text-foreground">Add a Movie</h2>
               <AddMovieForm onAdd={addMovie} />
             </div>
           </div>
