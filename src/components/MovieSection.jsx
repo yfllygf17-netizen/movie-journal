@@ -22,7 +22,7 @@ export function MovieSection({ title, movies, filterKey, emptyMessage, onOpen, .
   return (
     <section>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <h2 className="font-serif text-lg text-foreground">
+        <h2 className="font-serif text-2xl text-foreground">
           {title} <span className="text-sm text-muted-foreground">({sorted.length})</span>
         </h2>
         <SortControls sortBy={sortBy} onSortByChange={setSortBy} order={order} onOrderChange={setOrder} />

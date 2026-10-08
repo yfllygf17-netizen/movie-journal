@@ -22,6 +22,8 @@ export default function MainPage() {
   );
   const watched = useMemo(() => filtered.filter((m) => m.watched), [filtered]);
   const watchlist = useMemo(() => filtered.filter((m) => !m.watched), [filtered]);
+  const hasAnyWatched = useMemo(() => movies.some((m) => m.watched), [movies]);
+  const hasAnyWatchlist = useMemo(() => movies.some((m) => !m.watched), [movies]);
   const filterKey = `${search}|${favouritesOnly}|${genreFilters.join(',')}`;
   const selectedMovie = movies.find((m) => m.id === selectedId) || null;
 
@@ -59,9 +61,16 @@ export default function MainPage() {
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-6 lg:grid lg:grid-cols-[360px_1fr] lg:items-start lg:gap-8">
         <aside className="mb-8 lg:mb-0">
-          <div className="sticky top-6 border border-border bg-card p-5">
-            <h2 className="mb-4 font-serif text-lg text-foreground">Add a Movie</h2>
-            <AddMovieForm onAdd={addMovie} />
+          <div className="sticky top-6 relative overflow-hidden border border-border bg-card p-5">
+            <div
+              className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-20"
+              style={{ backgroundImage: 'url(/images/film-reel.jpg)' }}
+              aria-hidden="true"
+            />
+            <div className="relative z-10">
+              <h2 className="mb-4 font-serif text-2xl text-foreground">Add a Movie</h2>
+              <AddMovieForm onAdd={addMovie} />
+            </div>
           </div>
         </aside>
 
@@ -86,7 +95,7 @@ export default function MainPage() {
                 title="Watched"
                 movies={watched}
                 filterKey={filterKey}
-                emptyMessage="No watched movies match your filters yet."
+                emptyMessage={hasAnyWatched ? 'No watched movies match your filters.' : 'No movies added yet.'}
                 onOpen={(m) => setSelectedId(m.id)}
                 {...cardHandlers}
               />
@@ -94,7 +103,7 @@ export default function MainPage() {
                 title="Watchlist"
                 movies={watchlist}
                 filterKey={filterKey}
-                emptyMessage="Your watchlist is empty."
+                emptyMessage={hasAnyWatchlist ? 'No watchlist movies match your filters.' : 'No movies added yet.'}
                 onOpen={(m) => setSelectedId(m.id)}
                 {...cardHandlers}
               />

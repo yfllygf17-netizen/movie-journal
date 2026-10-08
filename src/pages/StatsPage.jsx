@@ -19,7 +19,7 @@ function StatTile({ label, value }) {
 function ChartCard({ title, children }) {
   return (
     <div className="border border-border bg-card p-5">
-      <h3 className="mb-4 font-serif text-base text-foreground">{title}</h3>
+      <h3 className="mb-4 font-serif text-xl text-foreground">{title}</h3>
       {children}
     </div>
   );
@@ -72,7 +72,7 @@ export default function StatsPage() {
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b border-border">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-          <h1 className="font-serif text-xl">Statistics</h1>
+          <h1 className="font-serif text-3xl">Statistics</h1>
           <Link to="/" className={cn(buttonVariants({ variant: 'outline', size: 'sm' }))}>
             <ArrowLeft className="h-4 w-4" /> Back
           </Link>

@@ -54,7 +54,7 @@ export function MovieCard({ movie, onOpen, onToggleFavourite, onTogglePriority, 
       </div>
 
       <div className="flex flex-1 flex-col gap-2 p-3">
-        <h3 className="line-clamp-2 font-serif text-sm leading-snug text-foreground">{movie.title}</h3>
+        <h3 className="line-clamp-2 font-serif text-lg leading-snug text-foreground">{movie.title}</h3>
         <StarRating value={movie.rating || 0} readOnly size="sm" />
 
         {movie.genres.length > 0 && (

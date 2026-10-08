@@ -97,7 +97,7 @@ export function MovieDetailModal({ movie, open, onClose, onUpdate, onDelete }) {
             <input
               value={draft.title}
               onChange={(e) => setDraft((d) => ({ ...d, title: e.target.value }))}
-              className="border-b border-transparent bg-transparent pr-8 font-serif text-xl text-foreground focus:border-border focus:outline-none"
+              className="border-b border-transparent bg-transparent pr-8 font-serif text-3xl text-foreground focus:border-border focus:outline-none"
             />
 
             <StarRating value={draft.rating} onChange={(v) => setDraft((d) => ({ ...d, rating: v }))} />
@@ -167,7 +167,7 @@ export function MovieDetailModal({ movie, open, onClose, onUpdate, onDelete }) {
             </div>
 
             <div className="border-t border-border pt-4">
-              <h4 className="mb-3 font-serif text-sm text-foreground">
+              <h4 className="mb-3 font-serif text-lg text-foreground">
                 Rewatch History {movie.rewatches.length > 0 && `(${movie.rewatches.length})`}
               </h4>
               <div className="mb-3 flex flex-wrap gap-2">

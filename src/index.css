@@ -3,8 +3,8 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-serif: 'Playfair Display', ui-serif, Georgia, serif;
+  --font-sans: 'IBM Plex Sans JP', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Beau Rivage', cursive;
 }
 
 :root {

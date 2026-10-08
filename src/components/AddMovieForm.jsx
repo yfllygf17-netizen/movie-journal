@@ -48,7 +48,7 @@ export function AddMovieForm({ onAdd }) {
   }, []);
 
   function selectSuggestion(s) {
-    setForm((f) => ({ ...f, title: s.title, posterUrl: s.poster_url || '' }));
+    setForm((f) => ({ ...f, title: s.title, posterUrl: s.poster_url || '', genres: s.genres || [] }));
     setSuggestions([]);
     setShowSuggestions(false);
   }

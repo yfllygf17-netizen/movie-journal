@@ -3,6 +3,4 @@ dist/
 .DS_Store
 
 backend/.env
-backend/moviejournal.db
-backend/moviejournal.db-wal
-backend/moviejournal.db-shm
+backend/moviejournal.db*
