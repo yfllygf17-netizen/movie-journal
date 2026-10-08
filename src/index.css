@@ -1,0 +1,83 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Playfair Display', ui-serif, Georgia, serif;
+}
+
+:root {
+  --background: hsl(36 18% 97%);
+  --foreground: hsl(30 15% 12%);
+  --card: hsl(36 22% 94%);
+  --card-foreground: hsl(30 15% 12%);
+  --border: hsl(30 12% 83%);
+  --input: hsl(30 12% 83%);
+  --muted: hsl(32 14% 90%);
+  --muted-foreground: hsl(30 8% 38%);
+  --accent: hsl(28 22% 42%);
+  --accent-foreground: hsl(36 20% 97%);
+  --primary: hsl(30 16% 28%);
+  --primary-foreground: hsl(36 20% 97%);
+  --destructive: hsl(0 55% 42%);
+  --ring: hsl(28 22% 42%);
+}
+
+.dark {
+  --background: hsl(240 6% 7%);
+  --foreground: hsl(36 12% 88%);
+  --card: hsl(240 6% 10%);
+  --card-foreground: hsl(36 12% 88%);
+  --border: hsl(240 5% 20%);
+  --input: hsl(240 5% 22%);
+  --muted: hsl(240 5% 15%);
+  --muted-foreground: hsl(240 4% 62%);
+  --accent: hsl(30 14% 58%);
+  --accent-foreground: hsl(240 6% 9%);
+  --primary: hsl(30 12% 62%);
+  --primary-foreground: hsl(240 6% 9%);
+  --destructive: hsl(0 65% 56%);
+  --ring: hsl(30 14% 58%);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-destructive: var(--destructive);
+  --color-ring: var(--ring);
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: 'ss01' 1;
+  }
+
+  ::selection {
+    @apply bg-accent/30;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+  }
+}
